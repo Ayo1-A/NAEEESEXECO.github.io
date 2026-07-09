@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NAEEES PRESS · Professional Release Platform</title>
+    <style>
+        /* ===== PROFESSIONAL PRESS RELEASE THEME ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-paper: #fafafc;
+            --surface: #ffffff;
+            --surface-alt: #f4f6fa;
+            --text-primary: #0b2545; /* Deep Navy */
+            --text-secondary: #3c4a5e;
+            --text-muted: #8896ab;
+            --border-subtle: #e8ecf1;
+            --shadow-card: 0 8px 28px -6px rgba(11, 37, 69, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+            --shadow-modal: 0 32px 64px -16px rgba(0, 0, 0, 0.25);
+            --radius-card: 12px;
+            --radius-sm: 6px;
+            --accent-gold: #d69e2e;
+            --accent-gold-light: #f6e05e;
+            --success: #38a169;
+            --danger: #e53e3e;
+            --warning: #d69e2e;
+            --info: #3182ce;
+            --sidebar-width: 260px;
+            --header-height: 76px;
+            --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-heading: "Georgia", "Times New Roman", serif;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark {
+            --bg-paper: #0f172a;
+            --surface: #1e293b;
+            --surface-alt: #162032;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: #334155;
+            --shadow-card: 0 8px 28px -6px rgba(0, 0, 0, 0.6);
+            --shadow-modal: 0 32px 64px -16px rgba(0, 0, 0, 0.8);
+            --accent-gold: #ecc94b;
+        }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font-ui);
+            background: var(--bg-paper);
+            color: var(--text-secondary);
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
+        input, textarea, select {
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            outline: none;
+            transition: border var(--transition), box-shadow var(--transition);
+            width: 100%;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(214, 158, 46, 0.15);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-paper); }
+        ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== PROFESSIONAL CARD ===== */
+        .press-card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .press-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px -8px rgba(11, 37, 69, 0.12);
+        }
+
+        /* ===== LOGIN SCREEN ===== */
+        #loginScreen {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-paper); padding: 20px;
+        }
+        .login-card {
+            width: 100%; max-width: 420px;
+            padding: 40px 36px;
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            animation: fadeUp 0.5s ease;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .login-card .brand-logo {
+            text-align: center; margin-bottom: 32px;
+            border-bottom: 2px solid var(--accent-gold); padding-bottom: 20px;
+        }
+        .login-card .brand-logo h1 {
+            font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--text-primary);
+            letter-spacing: -0.5px; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .login-card .brand-logo h1 span { color: var(--accent-gold); }
+        .login-card .brand-logo p { color: var(--text-muted); font-size: 13px; margin-top: 4px; letter-spacing: 0.3px; }
+        .login-card label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; }
+        .login-card .input-group { position: relative; margin-bottom: 20px; }
+        .login-card .input-group input { background: var(--bg-paper); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 12px 16px; }
+        .login-card .input-group .toggle-pw { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; cursor: pointer; padding: 4px; transition: color var(--transition); }
+        .login-card .input-group .toggle-pw:hover { color: var(--text-primary); }
+        .login-card .remember { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+        .login-card .remember input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent-gold); cursor: pointer; }
+        .login-btn {
+            width: 100%; padding: 14px; border-radius: var(--radius-sm);
+            font-size: 16px; font-weight: 600; color: #fff;
+            background: var(--text-primary);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .login-btn:hover { background: #152e4e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(11, 37, 69, 0.25); }
+        .login-btn:active { transform: scale(0.98); }
+        .login-error { color: var(--danger); font-size: 14px; text-align: center; margin-top: 12px; min-height: 22px; opacity: 0; transition: opacity var(--transition); }
+        .login-error.show { opacity: 1; }
+        .login-loader { display: none; justify-content: center; gap: 6px; margin-top: 12px; }
+        .login-loader.active { display: flex; }
+        .login-loader span { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-gold); animation: bounce 1.2s ease-in-out infinite; }
+        .login-loader span:nth-child(2) { animation-delay: 0.2s; }
+        .login-loader span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0.4); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+        .login-footer { text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 12px; }
+
+        /* ===== APP LAYOUT ===== */
+        #app { display: none; min-height: 100vh; background: var(--bg-paper); }
+        #app.active { display: flex; }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width);
+            background: var(--surface); border-right: 1px solid var(--border-subtle); z-index: 100;
+            padding: 24px 0; display: flex; flex-direction: column;
+            transition: transform var(--transition), background var(--transition); overflow-y: auto;
+        }
+        .sidebar .brand {
+            padding: 0 24px 28px 24px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid var(--border-subtle); margin-bottom: 16px;
+        }
+        .sidebar .brand .logo-icon {
+            width: 40px; height: 40px; background: var(--text-primary); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: var(--radius-sm); font-family: var(--font-heading); font-weight: 700; font-size: 18px;
+        }
+        .sidebar .brand .logo-text { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1; }
+        .sidebar .brand .logo-text span { color: var(--accent-gold); }
+        .sidebar .brand .logo-sub { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
+        .sidebar .nav { flex: 1; padding: 0 12px; }
+        .sidebar .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+            border-radius: var(--radius-sm); transition: background var(--transition), color var(--transition);
+            color: var(--text-secondary); font-weight: 500; font-size: 14px; margin-bottom: 4px; cursor: pointer;
+        }
+        .sidebar .nav-item:hover { background: var(--surface-alt); color: var(--text-primary); }
+        .sidebar .nav-item.active { background: var(--surface-alt); color: var(--text-primary); font-weight: 600; border-left: 3px solid var(--accent-gold); }
+        .sidebar .nav-item .icon { font-size: 20px; width: 28px; text-align: center; }
+        .sidebar .bottom { padding: 16px 12px; border-top: 1px solid var(--border-subtle); }
+
+        /* ===== MAIN CONTENT ===== */
+        .main { flex: 1; margin-left: var(--sidebar-width); padding: 0 36px 40px 36px; min-height: 100vh; transition: margin-left var(--transition); }
+
+        /* ===== HEADER ===== */
+        .header {
+            height: var(--header-height); display: flex; align-items: center; justify-content: space-between;
+            padding: 0 4px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 32px;
+            background: transparent; position: sticky; top: 0; z-index: 50;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        }
+        .header .left { display: flex; align-items: center; gap: 16px; }
+        .header .left .hamburger { display: none; font-size: 24px; cursor: pointer; padding: 4px; color: var(--text-muted); }
+        .header .left h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .header .left .breadcrumb { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+        .header .left .breadcrumb span { color: var(--text-secondary); }
+        .header .right { display: flex; align-items: center; gap: 12px; }
+        .header .right .icon-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            transition: background var(--transition); background: var(--surface);
+            border: 1px solid var(--border-subtle); color: var(--text-secondary);
+        }
+        .header .right .icon-btn:hover { background: var(--surface-alt); color: var(--text-primary); }
+        .header .right .avatar {
+            width: 40px; height: 40px; border-radius: 50%; background: var(--text-primary);
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            font-weight: 700; font-size: 16px; cursor: pointer;
+        }
+
+        /* ===== PAGE CONTAINER ===== */
+        .page { display: none; animation: fadeUp 0.4s ease; }
+        .page.active { display: block; }
+
+        /* ===== DASHBOARD ===== */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { padding: 22px 20px; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-card); transition: transform var(--transition); }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-card .label { font-size: 13px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .stat-card .value { font-size: 30px; font-weight: 700; color: var(--text-primary); }
+        .stat-card .icon { font-size: 36px; float: right; opacity: 0.15; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 32px; }
+        .dashboard-grid .card { padding: 24px; border-radius: var(--radius-card); background: var(--surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); }
+        .dashboard-grid .card h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px; }
+        .activity-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 14px; }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-item .time { color: var(--text-muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
+
+        /* ===== ANNOUNCEMENT CARDS ===== */
+        .feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+        .announcement-card { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition); cursor: pointer; }
+        .announcement-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px -8px rgba(11, 37, 69, 0.12); }
+        .announcement-card .img-wrap { position: relative; padding-top: 48%; background: var(--bg-paper); overflow: hidden; }
+        .announcement-card .img-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition); }
+        .announcement-card:hover .img-wrap img { transform: scale(1.02); }
+        .announcement-card .img-wrap .placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 48px; background: var(--surface-alt); color: var(--text-muted); }
+        .announcement-card .body { padding: 20px 24px 24px; }
+        .announcement-card .body .top { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .announcement-card .body .top .badge { font-size: 10px; font-weight: 700; padding: 3px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; background: var(--surface-alt); color: var(--text-muted); }
+        .badge-priority-Normal { background: var(--bg-paper); color: var(--text-muted); }
+        .badge-priority-Important { background: var(--warning); color: #fff; }
+        .badge-priority-Urgent { background: var(--danger); color: #fff; }
+        .badge-priority-Critical { background: #742a2a; color: #fff; }
+        .announcement-card .body h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; color: var(--text-primary); }
+        .announcement-card .body .summary { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .announcement-card .body .meta { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--text-muted); flex-wrap: wrap; }
+        .announcement-card .body .meta .author { font-weight: 500; color: var(--text-secondary); }
+        .announcement-card .body .actions { margin-top: 16px; display: flex; gap: 12px; align-items: center; }
+        .announcement-card .body .actions .btn-read { padding: 8px 20px; border-radius: 20px; background: var(--text-primary); color: #fff; font-weight: 600; font-size: 13px; transition: transform var(--transition), box-shadow var(--transition); }
+        .announcement-card .body .actions .btn-read:hover { background: #152e4e; transform: scale(1.02); box-shadow: 0 4px 16px rgba(11, 37, 69, 0.2); }
+
+        /* ===== CREATE / EDIT FORM ===== */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .form-grid .full { grid-column: 1 / -1; }
+        .form-group { margin-bottom: 4px; }
+        .form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--text-secondary); }
+        .form-group .hint { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        .image-preview-wrap { position: relative; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-paper); min-height: 160px; border: 2px dashed var(--border-subtle); display: flex; align-items: center; justify-content: center; transition: border var(--transition); }
+        .image-preview-wrap.has-image { border-color: var(--accent-gold); border-style: solid; }
+        .image-preview-wrap img { width: 100%; max-height: 320px; object-fit: cover; border-radius: var(--radius-sm); display: block; }
+        .image-preview-wrap .placeholder-text { color: var(--text-muted); font-size: 14px; padding: 20px; text-align: center; }
+        .image-preview-wrap .placeholder-text .icon { font-size: 40px; display: block; margin-bottom: 8px; }
+
+        /* ===== PROFESSIONAL RTE ===== */
+        .rte-toolbar { display: flex; flex-wrap: wrap; gap: 3px; padding: 8px 10px; background: var(--surface-alt); border: 1px solid var(--border-subtle); border-bottom: none; border-radius: var(--radius-sm) var(--radius-sm) 0 0; align-items: center; }
+        .rte-toolbar .group { display: flex; gap: 2px; align-items: center; padding: 0 6px; border-right: 1px solid var(--border-subtle); }
+        .rte-toolbar .group:last-child { border-right: none; }
+        .rte-toolbar button { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; transition: background var(--transition); background: transparent; color: var(--text-secondary); flex-shrink: 0; type: button; }
+        .rte-toolbar button:hover { background: var(--surface); color: var(--text-primary); }
+        .rte-toolbar button.active { background: var(--surface); color: var(--text-primary); box-shadow: inset 0 0 0 1px var(--accent-gold); }
+        .rte-editor { min-height: 240px; padding: 16px 18px; border: 1px solid var(--border-subtle); border-radius: 0 0 var(--radius-sm) var(--radius-sm); background: var(--surface); color: var(--text-primary); outline: none; font-size: 15px; line-height: 1.8; transition: border var(--transition); overflow-y: auto; }
+        .rte-editor:focus { border-color: var(--accent-gold); }
+        .rte-editor[contenteditable="true"] { cursor: text; }
+        .rte-editor img { max-width: 100%; border-radius: var(--radius-sm); margin: 8px 0; display: inline-block; vertical-align: middle; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .rte-stats { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+        .rte-stats strong { color: var(--text-secondary); }
+
+        /* ===== READ MORE (PRESS RELEASE) ===== */
+        .readmore-header { border-radius: var(--radius-card); overflow: hidden; margin-bottom: 36px; background: var(--surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); }
+        .readmore-header img { width: 100%; max-height: 440px; object-fit: cover; display: block; }
+        .readmore-header .overlay { padding: 40px 48px 32px; background: var(--surface); border-top: 4px solid var(--accent-gold); text-align: center; }
+        .readmore-header .overlay .meta-pill { display: inline-flex; align-items: center; gap: 16px; background: var(--bg-paper); padding: 6px 20px; border-radius: 20px; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+        .readmore-header .overlay h1 { font-family: var(--font-heading); font-size: 34px; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary); line-height: 1.25; }
+        .readmore-header .overlay .subtitle { font-size: 20px; color: var(--text-secondary); margin-bottom: 16px; font-weight: 400; }
+        .readmore-body { display: grid; grid-template-columns: 1fr 280px; gap: 40px; }
+        .readmore-body .content { font-size: 17px; line-height: 1.9; color: var(--text-secondary); }
+        .readmore-body .content h1, .readmore-body .content h2, .readmore-body .content h3 { font-family: var(--font-heading); margin-top: 28px; margin-bottom: 12px; color: var(--text-primary); }
+        .readmore-body .content blockquote { border-left: 4px solid var(--accent-gold); padding-left: 20px; margin: 20px 0; font-style: italic; color: var(--text-secondary); }
+        .readmore-body .content img { max-width: 100%; border-radius: var(--radius-sm); margin: 16px 0; border: 1px solid var(--border-subtle); }
+        .readmore-body .sidebar-info { padding: 24px; border-radius: var(--radius-card); background: var(--surface); border: 1px solid var(--border-subtle); height: fit-content; position: sticky; top: 100px; box-shadow: var(--shadow-card); }
+        .readmore-body .sidebar-info .info-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 14px; }
+        .readmore-body .sidebar-info .info-item:last-child { border-bottom: none; }
+        .readmore-body .sidebar-info .info-item .label { color: var(--text-muted); font-weight: 500; }
+        .readmore-body .sidebar-info .info-item .value { text-align: right; color: var(--text-secondary); font-weight: 500; }
+
+        /* ===== COMMENTS ===== */
+        .comments-section { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-subtle); }
+        .comments-section h3 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+        .comment-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-subtle); }
+        .comment-item .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--text-primary); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+        .comment-item .body { flex: 1; }
+        .comment-item .body .name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+        .comment-item .body .text { font-size: 14px; margin: 4px 0 6px; color: var(--text-secondary); }
+        .comment-item .body .meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 16px; align-items: center; }
+        .comment-item .body .meta button.danger { color: var(--danger); font-weight: 600; font-size: 12px; }
+
+        /* ===== SETTINGS ===== */
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .settings-grid .card { padding: 24px; border-radius: var(--radius-card); background: var(--surface); border: 1px solid var(--border-subtle); }
+        .settings-grid .card h4 { font-family: var(--font-heading); font-size: 16px; margin-bottom: 16px; color: var(--text-primary); }
+        .settings-grid .card .btn { padding: 8px 18px; border-radius: var(--radius-sm); font-weight: 600; font-size: 14px; transition: transform var(--transition); margin-right: 8px; margin-top: 8px; }
+        .settings-grid .card .btn-primary { background: var(--text-primary); color: #fff; }
+        .settings-grid .card .btn-danger { background: var(--danger); color: #fff; }
+        .settings-grid .card .btn-success { background: var(--success); color: #fff; }
+        .settings-grid .card .btn:hover { transform: scale(1.02); opacity: 0.9; }
+
+        /* ===== TOAST ===== */
+        #toastContainer { position: fixed; top: 24px; right: 24px; z-index: 99999; display: flex; flex-direction: column; gap: 12px; max-width: 360px; width: 100%; pointer-events: none; }
+        .toast { padding: 16px 20px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-modal); display: flex; align-items: center; gap: 12px; animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: auto; position: relative; overflow: hidden; }
+        .toast .icon { font-size: 24px; }
+        .toast .msg { flex: 1; font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+        .toast .close { cursor: pointer; font-size: 18px; opacity: 0.4; transition: opacity var(--transition); margin-left: 8px; }
+        .toast .close:hover { opacity: 1; }
+        .toast .progress { position: absolute; bottom: 0; left: 0; height: 3px; background: var(--text-primary); animation: shrink 4.5s linear forwards; }
+        .toast.success .progress { background: var(--success); }
+        .toast.error .progress { background: var(--danger); }
+        .toast.warning .progress { background: var(--warning); }
+        .toast.info .progress { background: var(--info); }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes shrink { from { width: 100%; } to { width: 0%; } }
+
+        /* ===== USER MANAGEMENT & MODAL ===== */
+        .user-table-wrap { overflow-x: auto; background: var(--surface); border-radius: var(--radius-card); border: 1px solid var(--border-subtle); padding: 4px; box-shadow: var(--shadow-card); }
+        .user-table-wrap table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .user-table-wrap th, .user-table-wrap td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border-subtle); vertical-align: middle; }
+        .user-table-wrap th { background: var(--bg-paper); font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        .user-table-wrap tr:last-child td { border-bottom: none; }
+        .role-badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .role-badge.admin { background: var(--text-primary); color: #fff; }
+        .role-badge.user { background: var(--info); color: #fff; }
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .status-badge.active { background: var(--success); color: #fff; }
+        .status-badge.suspended { background: var(--danger); color: #fff; }
+        .user-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .user-actions button { padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; transition: opacity var(--transition); }
+        .user-actions .btn-edit { background: var(--surface-alt); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+        .user-actions .btn-suspend { background: var(--danger); color: #fff; }
+        .user-actions .btn-unsuspend { background: var(--success); color: #fff; }
+        .user-actions button:hover { opacity: 0.8; }
+
+        /* PROFESSIONAL MODAL OVERLAY */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 99998;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center; padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            background: var(--surface); border-radius: var(--radius-card);
+            padding: 32px; max-width: 480px; width: 100%;
+            border: 1px solid var(--border-subtle); box-shadow: var(--shadow-modal);
+            animation: scaleUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .modal-content h3 { font-family: var(--font-heading); font-size: 20px; color: var(--text-primary); margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px; }
+        .modal-content .form-group { margin-bottom: 16px; }
+        .modal-content .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+        .modal-content .modal-actions .btn { padding: 10px 24px; border-radius: var(--radius-sm); font-weight: 600; }
+        .modal-content .modal-actions .btn-secondary { background: var(--bg-paper); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+        .modal-content .modal-actions .btn-secondary:hover { background: var(--surface-alt); }
+        .modal-content .modal-actions .btn-primary { background: var(--text-primary); color: #fff; }
+        .modal-content .modal-actions .btn-primary:hover { background: #152e4e; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; } .form-grid .full { grid-column: 1; }
+            .readmore-body { grid-template-columns: 1fr; }
+            .readmore-body .sidebar-info { position: static; }
+            .settings-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 280px; }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; padding: 0 16px 32px 16px; }
+            .header .left .hamburger { display: block; }
+            .header .left h2 { font-size: 18px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .login-card { padding: 28px 20px; }
+            .rte-toolbar button { width: 28px; height: 28px; font-size: 12px; }
+            .readmore-header .overlay { padding: 24px; }
+            .readmore-header .overlay h1 { font-size: 26px; }
+            #toastContainer { top: 16px; right: 16px; max-width: calc(100% - 32px); }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-card .value { font-size: 24px; }
+            .feed-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== UTILITY ===== */
+        .mt-16 { margin-top: 16px; }
+        .mb-16 { margin-bottom: 16px; }
+        .flex { display: flex; } .gap-8 { gap: 8px; } .gap-12 { gap: 12px; }
+        .hidden { display: none !important; }
+        .w-full { width: 100%; }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+            border-radius: 20px; background: var(--surface); border: 1px solid var(--border-subtle);
+            font-weight: 500; font-size: 14px; transition: background var(--transition);
+            margin-bottom: 20px; cursor: pointer; color: var(--text-secondary);
+        }
+        .back-btn:hover { background: var(--surface-alt); color: var(--text-primary); }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox { position: fixed; inset: 0; z-index: 99998; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: var(--radius-sm); box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5); cursor: default; }
+        .lightbox .close-lb { position: absolute; top: 20px; right: 30px; font-size: 40px; color: #fff; cursor: pointer; opacity: 0.6; transition: opacity var(--transition); }
+        .lightbox .close-lb:hover { opacity: 1; }
+
+        /* ===== PUBLIC VIEW ===== */
+        #publicView { display: none; padding: 24px; max-width: 900px; margin: 0 auto; }
+        #publicView.active { display: block; }
+        #publicView .readmore-header { border-radius: var(--radius-card); overflow: hidden; background: var(--surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); padding: 32px; text-align: center; }
+        #publicView .readmore-header img { width: 100%; max-height: 420px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 24px; }
+        #publicView .readmore-header h1 { font-family: var(--font-heading); font-size: 32px; color: var(--text-primary); margin-bottom: 8px; }
+        #publicView .comments-section .login-prompt { padding: 24px; text-align: center; background: var(--surface); border-radius: var(--radius-card); border: 1px solid var(--border-subtle); }
+        #publicView .comments-section .login-prompt button { padding: 8px 24px; border-radius: 20px; background: var(--text-primary); color: #fff; font-weight: 600; margin: 0 8px; }
+        #publicView .comments-section .login-prompt button:hover { background: #152e4e; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <div class="brand-logo">
+                <h1>📰 <span>NAEEES</span> PRESS</h1>
+                <p>Public Relations &amp; Editorial Management</p>
+            </div>
+            <form id="loginForm" autocomplete="off">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="press@naees.org" value="ayomichael120@gmail.com" required />
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" value="Ayo1boy2" required />
+                    <span class="toggle-pw" id="togglePw">👁️</span>
+                </div>
+                <div class="remember">
+                    <input type="checkbox" id="rememberMe" checked />
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+                <div class="login-loader" id="loginLoader"><span></span><span></span><span></span></div>
+                <div class="login-error" id="loginError"></div>
+            </form>
+            <div class="login-footer">NAEEES Press Release System v2.0 · Secure Local Storage</div>
+        </div>
+    </div>
+
+    <!-- ===== PROFESSIONAL USER EDIT MODAL ===== -->
+    <div class="modal-overlay" id="userEditModal">
+        <div class="modal-content">
+            <h3>Edit User Account</h3>
+            <form id="userEditForm">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" required />
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email Address</label>
+                    <input type="email" id="editEmail" required />
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">New Password <span style="font-weight:400;color:var(--text-muted);">(leave blank to keep current)</span></label>
+                    <input type="password" id="editPassword" placeholder="••••••••" />
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="closeUserEditModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-lb" id="closeLb">✕</span>
+        <img id="lbImage" src="" alt="Zoom" />
+    </div>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div id="toastContainer"></div>
+
+    <!-- ===== PUBLIC VIEW ===== -->
+    <div id="publicView">
+        <div id="publicContent"></div>
+        <div id="publicCommentsSection">
+            <h3 style="font-family:var(--font-heading);font-size:20px;margin-bottom:16px;color:var(--text-primary);">💬 Comments</h3>
+            <div id="publicCommentsList"></div>
+            <div id="publicLoginPrompt" class="login-prompt">
+                <p style="margin-bottom:12px;">Please <button id="publicLoginBtn">Login</button> or <button id="publicRegisterBtn">Register</button> to view and post comments.</p>
+            </div>
+            <div id="publicCommentFormWrap" style="display:none;margin-top:16px;">
+                <textarea id="publicCommentText" rows="2" placeholder="Write a comment..."></textarea>
+                <button id="publicSubmitComment" class="login-btn" style="width:auto;padding:8px 24px;margin-top:12px;background:var(--text-primary);">Post Comment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== APP ===== -->
+    <div id="app">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="logo-icon">N</div>
+                <div>
+                    <div class="logo-text">NAEEES <span>PRESS</span></div>
+                    <span class="logo-sub">Editorial Dashboard</span>
+                </div>
+            </div>
+            <nav class="nav" id="sidebarNav">
+                <div class="nav-item active" data-page="dashboard"><span class="icon">📊</span> Dashboard</div>
+                <div class="nav-item" data-page="create"><span class="icon">✍️</span> New Press Release</div>
+                <div class="nav-item" data-page="manage"><span class="icon">📂</span> Manage Releases</div>
+                <div class="nav-item" data-page="comments"><span class="icon">💬</span> Comments</div>
+                <div class="nav-item" data-page="users"><span class="icon">👥</span> Users</div>
+                <div class="nav-item" data-page="settings"><span class="icon">⚙️</span> Settings</div>
+            </nav>
+            <div class="bottom">
+                <div class="nav-item" id="logoutBtn"><span class="icon">🚪</span> Logout</div>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main" id="mainContent">
+            <!-- HEADER -->
+            <header class="header">
+                <div class="left">
+                    <span class="hamburger" id="hamburger">☰</span>
+                    <div>
+                        <h2 id="pageTitle">Dashboard</h2>
+                        <div class="breadcrumb">NAEEES Press / <span id="breadcrumbCurrent">Dashboard</span></div>
+                    </div>
+                </div>
+                <div class="right">
+                    <button class="icon-btn" id="darkToggle" title="Toggle Dark Mode">🌙</button>
+                    <div class="avatar" id="avatarDisplay">👤</div>
+                </div>
+            </header>
+
+            <!-- ===== PAGE: DASHBOARD ===== -->
+            <div class="page active" id="pageDashboard">
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card"><div class="icon">📄</div><div class="label">Published</div><div class="value" id="statPublished">0</div></div>
+                    <div class="stat-card"><div class="icon">📝</div><div class="label">Drafts</div><div class="value" id="statDrafts">0</div></div>
+                    <div class="stat-card"><div class="icon">📅</div><div class="label">Today's Releases</div><div class="value" id="statToday">0</div></div>
+                    <div class="stat-card"><div class="icon">💬</div><div class="label">Comments</div><div class="value" id="statComments">0</div></div>
+                    <div class="stat-card"><div class="icon">👁️</div><div class="label">Views</div><div class="value" id="statViews">0</div></div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card"><h3>📌 Latest Press Release</h3><div id="latestAnnouncement"><p style="color:var(--text-muted);font-size:14px;">No releases yet.</p></div></div>
+                    <div class="card"><h3>🕐 Recent Activity</h3><div id="recentActivity"><p style="color:var(--text-muted);font-size:14px;">No activity recorded.</p></div></div>
+                </div>
+
+                <div class="press-card" style="padding:24px;">
+                    <h3 style="font-family:var(--font-heading);margin-bottom:16px;color:var(--text-primary);">📈 Monthly Views</h3>
+                    <canvas id="chartCanvas" height="160" style="width:100%;max-height:160px;"></canvas>
+                </div>
+            </div>
+
+            <!-- ===== PAGE: CREATE ===== -->
+            <div class="page" id="pageCreate">
+                <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
+                <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:700;margin-bottom:20px;color:var(--text-primary);">✍️ Draft New Press Release</h2>
+                <form id="createForm" class="press-card" style="padding:24px;">
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Release Title *</label>
+                            <input type="text" id="annTitle" placeholder="Headline of the press release" required />
+                        </div>
+                        <div class="form-group full">
+                            <label>Subtitle</label>
+                            <input type="text" id="annSubtitle" placeholder="Optional sub-headline" />
+                        </div>
+                        <div class="form-group full">
+                            <label>Featured Image</label>
+                            <div class="flex gap-8" style="flex-wrap:wrap;margin-bottom:8px;">
+                                <input type="text" id="imgUrlInput" placeholder="Paste image URL..." style="flex:1;min-width:200px;" />
+                            </div>
+                            <div class="image-preview-wrap" id="imagePreviewWrap">
+                                <div class="placeholder-text"><span class="icon">🖼️</span> No image selected. Paste a valid image URL.</div>
+                            </div>
+                            <div class="hint">Supports JPG, PNG, GIF, WEBP, SVG. Paste any direct image URL.</div>
+                        </div>
+                        <div class="form-group full">
+                            <label>Press Release Body *</label>
+                            <div class="rte-toolbar" id="rteToolbar">
+                                <div class="group">
+                                    <button type="button" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                                    <button type="button" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+                                    <button type="button" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+                                    <button type="button" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" data-cmd="insertUnorderedList" title="Bullet list">•</button>
+                                    <button type="button" data-cmd="insertOrderedList" title="Numbered list">1.</button>
+                                    <button type="button" data-cmd="formatBlock" data-value="blockquote" title="Quote">❝</button>
+                                    <button type="button" data-cmd="insertHorizontalRule" title="Divider">―</button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" data-cmd="justifyLeft" title="Left align">≡</button>
+                                    <button type="button" data-cmd="justifyCenter" title="Center">☰</button>
+                                    <button type="button" data-cmd="justifyRight" title="Right align">≡</button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" data-cmd="removeFormat" title="Clear formatting">✕</button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" data-cmd="insertInlineImageUrl" title="Insert image from URL">🌐</button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" data-cmd="undo" title="Undo (Ctrl+Z)">↩</button>
+                                    <button type="button" data-cmd="redo" title="Redo (Ctrl+Y)">↪</button>
+                                </div>
+                                <div class="group">
+                                    <button type="button" id="continueWritingBtn" title="Continue writing (move cursor to end)">➡️</button>
+                                </div>
+                            </div>
+                            <div class="rte-editor" id="rteEditor" contenteditable="true"></div>
+                            <div class="rte-stats">
+                                <span>Words: <strong id="wordCount">0</strong></span>
+                                <span>Chars: <strong id="charCount">0</strong></span>
+                                <span>Lines: <strong id="lineCount">0</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Summary</label>
+                            <textarea id="annSummary" rows="2" placeholder="Brief summary for previews..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Author *</label>
+                            <input type="text" id="annAuthor" placeholder="Author name" value="NAEEES Press Team" />
+                        </div>
+                        <div class="form-group">
+                            <label>Priority *</label>
+                            <select id="annPriority">
+                                <option value="Normal">Normal</option>
+                                <option value="Important">Important</option>
+                                <option value="Urgent">Urgent</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Publish Date &amp; Time</label>
+                            <input type="datetime-local" id="annDateTime" />
+                        </div>
+                        <div class="form-group">
+                            <label>Tags (comma separated)</label>
+                            <input type="text" id="annTags" placeholder="e.g. policy, education, reform" />
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="annStatus">
+                                <option value="Published">Published</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <button type="submit" class="login-btn" style="width:auto;padding:12px 40px;background:var(--text-primary);">Publish Release</button>
+                            <button type="button" id="saveDraftBtn" style="padding:12px 28px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border-subtle);font-weight:600;margin-left:12px;">💾 Save Draft</button>
+                            <button type="button" id="cancelEditBtn" style="padding:12px 28px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border-subtle);font-weight:600;margin-left:12px;display:none;">✕ Cancel Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ===== PAGE: MANAGE ===== -->
+            <div class="page" id="pageManage">
+                <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:700;margin-bottom:20px;color:var(--text-primary);">📂 Manage Press Releases</h2>
+                <div id="manageList"></div>
+            </div>
+
+            <!-- ===== PAGE: COMMENTS ===== -->
+            <div class="page" id="pageComments">
+                <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:700;margin-bottom:20px;color:var(--text-primary);">💬 All Comments</h2>
+                <div id="commentsListAll"></div>
+            </div>
+
+            <!-- ===== PAGE: USERS ===== -->
+            <div class="page" id="pageUsers">
+                <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:700;margin-bottom:20px;color:var(--text-primary);">👥 Registered Users</h2>
+                <div class="user-table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="userTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ===== PAGE: READ ===== -->
+            <div class="page" id="pageRead">
+                <button class="back-btn" id="readBackBtn">← Back to Releases</button>
+                <div id="readContent"></div>
+            </div>
+
+            <!-- ===== PAGE: SETTINGS ===== -->
+            <div class="page" id="pageSettings">
+                <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:700;margin-bottom:20px;color:var(--text-primary);">⚙️ Settings</h2>
+                <div class="settings-grid">
+                    <div class="card"><h4>👤 Profile</h4><div class="form-group"><label>Display Name</label><input type="text" id="settingsName" value="NAEEES Press Team" /></div><button class="btn btn-primary" id="updateProfileBtn">Update Profile</button></div>
+                    <div class="card"><h4>🔑 Change Password</h4><div class="form-group"><label>New Password</label><input type="password" id="settingsNewPw" placeholder="Enter new password" /></div><button class="btn btn-primary" id="changePwBtn">Change Password</button></div>
+                    <div class="card"><h4>🎨 Theme</h4><div class="flex gap-8"><button class="btn btn-primary" id="themeLight">☀️ Light</button><button class="btn btn-primary" id="themeDark">🌙 Dark</button><button class="btn" id="themeSystem" style="border:1px solid var(--border-subtle);">💻 System</button></div></div>
+                    <div class="card"><h4>💾 Data</h4><button class="btn btn-success" id="backupDataBtn">📤 Backup</button><button class="btn btn-primary" id="restoreDataBtn">📥 Restore</button><button class="btn btn-danger" id="clearDataBtn">🗑️ Clear All Data</button></div>
+                </div>
+            </div>
+
+        </div><!-- end .main -->
+    </div><!-- end #app -->
+
+    <script>
+        // ========================================================================
+        //  NAEEES PRESS RELEASE — Professional Full-Stack Management System
+        //  Features: Professional RTE, User Modal (Edit/Suspend/Unsuspend),
+        //  Native Share, Rebranded Styling, Fully Upgraded UI/UX.
+        // ========================================================================
+
+        (function() {
+            'use strict';
+
+            // ========================================================================
+            //  UTILITY CORE
+            // ========================================================================
+            const Utils = {
+                id: (id) => document.getElementById(id),
+                qs: (sel, ctx) => (ctx || document).querySelector(sel),
+                qsa: (sel, ctx) => (ctx || document).querySelectorAll(sel),
+                dateStr: (d) => d.toISOString().split('T')[0],
+                now: () => new Date().toISOString(),
+                formatDateTime: (iso) => {
+                    if (!iso) return '';
+                    const d = new Date(iso);
+                    if (isNaN(d.getTime())) return '';
+                    const datePart = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const timePart = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                    return datePart + ', ' + timePart;
+                },
+                formatDate: (iso) => {
+                    const d = new Date(iso);
+                    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                },
+                truncate: (s, n) => s && s.length > n ? s.slice(0, n) + '…' : s || '',
+                randomId: () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                isImageUrl: (url) => {
+                    if (!url || typeof url !== 'string') return false;
+                    const ext = url.split('.').pop().toLowerCase();
+                    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'].includes(ext)) return true;
+                    return /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg|bmp|ico)/i.test(url);
+                },
+                isGoogleDriveUrl: (url) => {
+                    if (!url || typeof url !== 'string') return false;
+                    return /^(https?:\/\/)?(www\.)?drive\.google\.com\/(file\/d\/|open\?id=|uc\?.*?id=|folderview\?id=)/i.test(url);
+                },
+                extractGoogleDriveId: (url) => {
+                    let match;
+                    match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+                    if (match) return match[1];
+                    match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                    if (match) return match[1];
+                    return null;
+                },
+                convertGoogleDriveUrl: (url) => {
+                    const id = Utils.extractGoogleDriveId(url);
+                    if (id) return 'https://drive.google.com/uc?export=view&id=' + id;
+                    return url;
+                },
+                sanitize: (str) => {
+                    const div = document.createElement('div');
+                    div.textContent = str || '';
+                    return div.innerHTML;
+                },
+                stripHtml: (html) => {
+                    const d = document.createElement('div');
+                    d.innerHTML = html || '';
+                    return d.textContent || d.innerText || '';
+                },
+                wordCount: (html) => {
+                    const text = Utils.stripHtml(html);
+                    return text.trim() ? text.trim().split(/\s+/).length : 0;
+                },
+                charCount: (html) => Utils.stripHtml(html).length,
+                lineCount: (html) => {
+                    const text = Utils.stripHtml(html);
+                    return text.trim() ? text.split(/\n/).length : 0;
+                },
+                generateAvatar: (name) => {
+                    if (!name) return '👤';
+                    const parts = name.trim().split(' ');
+                    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+                    return name.slice(0, 2).toUpperCase();
+                },
+                insertImageAtCursor: (src, alt = '') => {
+                    const editor = Utils.id('rteEditor');
+                    if (!src) return;
+                    const sel = window.getSelection();
+                    if (!sel || !sel.rangeCount || !sel.getRangeAt(0)) {
+                        editor.innerHTML += `<img src="${src}" alt="${alt}" style="max-width:100%;border-radius:4px;margin:6px 0;" />`;
+                        updateRteStats();
+                        return;
+                    }
+                    const range = sel.getRangeAt(0);
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = alt || 'Inline image';
+                    img.style.maxWidth = '100%';
+                    img.style.borderRadius = '4px';
+                    img.style.margin = '6px 0';
+                    img.style.display = 'inline-block';
+                    img.style.verticalAlign = 'middle';
+                    range.deleteContents();
+                    range.insertNode(img);
+                    range.setStartAfter(img);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    updateRteStats();
+                    Toast.success('Image inserted inline!');
+                },
+                _savedSelection: null,
+                saveSelection: () => {
+                    const sel = window.getSelection();
+                    if (sel && sel.rangeCount > 0) {
+                        Utils._savedSelection = sel.getRangeAt(0);
+                    } else {
+                        Utils._savedSelection = null;
+                    }
+                },
+                restoreSelection: () => {
+                    if (!Utils._savedSelection) return;
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(Utils._savedSelection);
+                    Utils._savedSelection = null;
+                },
+                getPublicUrl: (id) => {
+                    return window.location.origin + window.location.pathname + '#publicPost-' + id;
+                }
+            };
+
+            // ========================================================================
+            //  STORAGE (naees_ prefix)
+            // ========================================================================
+            const Storage = {
+                get(key, def) {
+                    try {
+                        const raw = localStorage.getItem('naees_' + key);
+                        return raw ? JSON.parse(raw) : def;
+                    } catch { return def; }
+                },
+                set(key, val) {
+                    localStorage.setItem('naees_' + key, JSON.stringify(val));
+                },
+                remove(key) {
+                    localStorage.removeItem('naees_' + key);
+                },
+                clear() {
+                    const keys = Object.keys(localStorage);
+                    keys.filter(k => k.startsWith('naees_')).forEach(k => localStorage.removeItem(k));
+                },
+                getAll() {
+                    const result = {};
+                    for (const k of Object.keys(localStorage)) {
+                        if (k.startsWith('naees_')) {
+                            try { result[k] = JSON.parse(localStorage.getItem(k)); } catch {}
+                        }
+                    }
+                    return result;
+                }
+            };
+
+            // ========================================================================
+            //  USER MANAGEMENT (Modal Upgrade)
+            // ========================================================================
+            const Users = {
+                getAll() { return Storage.get('users', []); },
+                saveAll(users) { Storage.set('users', users); },
+                register(username, email, password) {
+                    const users = this.getAll();
+                    if (users.find(u => u.email === email)) return { success: false, error: 'Email already registered.' };
+                    const user = { id: Utils.randomId(), username: username.trim(), email: email.trim(), password: password, role: 'user', status: 'active', createdAt: Utils.now() };
+                    users.push(user);
+                    this.saveAll(users);
+                    return { success: true, user };
+                },
+                login(email, password) {
+                    const users = this.getAll();
+                    const user = users.find(u => u.email === email && u.password === password);
+                    if (!user) return { success: false, error: 'Invalid email or password.' };
+                    if (user.status === 'suspended') return { success: false, error: 'Your account has been suspended.' };
+                    Storage.set('current_user', { id: user.id, username: user.username, email: user.email, role: user.role });
+                    return { success: true, user };
+                },
+                getCurrent() { return Storage.get('current_user', null); },
+                logoutUser() { Storage.remove('current_user'); },
+                isLoggedIn() { return !!this.getCurrent(); },
+                updateUser(id, newUsername, newEmail, newPassword) {
+                    const users = this.getAll();
+                    const idx = users.findIndex(u => u.id === id);
+                    if (idx === -1) return { success: false, error: 'User not found.' };
+                    users[idx].username = newUsername.trim();
+                    users[idx].email = newEmail.trim();
+                    if (newPassword && newPassword.length > 0) users[idx].password = newPassword;
+                    this.saveAll(users);
+                    return { success: true };
+                },
+                toggleStatus(id) {
+                    const users = this.getAll();
+                    const user = users.find(u => u.id === id);
+                    if (!user) return { success: false, error: 'User not found.' };
+                    user.status = user.status === 'active' ? 'suspended' : 'active';
+                    this.saveAll(users);
+                    return { success: true, newStatus: user.status };
+                },
+                initDemo() {
+                    if (this.getAll().length > 0) return;
+                    const demos = [
+                        { id: 'admin1', username: 'NAEEES Press Admin', email: 'pro@example.com', password: 'Ayo1boy2', role: 'admin', status: 'active', createdAt: Utils.now() },
+                        { id: 'user1', username: 'John Doe', email: 'john@example.com', password: 'pass123', role: 'user', status: 'active', createdAt: Utils.now() },
+                        { id: 'user2', username: 'Jane Smith', email: 'jane@example.com', password: 'pass123', role: 'user', status: 'suspended', createdAt: Utils.now() }
+                    ];
+                    this.saveAll(demos);
+                }
+            };
+
+            // ========================================================================
+            //  AUTH (Admin)
+            // ========================================================================
+            const Auth = {
+                ADMIN_EMAIL: 'ayomichael120@gmail.com', ADMIN_PASS: 'Ayo1boy2',
+                login(email, password, remember) {
+                    if (email === this.ADMIN_EMAIL && password === this.ADMIN_PASS) {
+                        Storage.set('session', { loggedIn: true, email, loginTime: Utils.now(), remember: !!remember });
+                        return { success: true };
+                    }
+                    return { success: false, error: 'Invalid email or password.' };
+                },
+                logout() { Storage.remove('session'); },
+                isLoggedIn() { const session = Storage.get('session', null); return session && session.loggedIn === true; },
+                getSession() { return Storage.get('session', null); },
+                restoreSession() { const session = Storage.get('session', null); if (session && session.loggedIn && session.remember) return session; return null; },
+                changePassword(newPw) {
+                    if (!newPw || newPw.length < 4) return { success: false, error: 'Password must be at least 4 characters.' };
+                    Storage.set('custom_password', newPw); return { success: true };
+                }
+            };
+
+            // ========================================================================
+            //  ANNOUNCEMENT (Category removed, Link tool removed)
+            // ========================================================================
+            const Announcement = {
+                getAll() { return Storage.get('announcements', []); },
+                get(id) { return this.getAll().find(a => a.id === id) || null; },
+                save(ann) {
+                    const list = this.getAll();
+                    const idx = list.findIndex(a => a.id === ann.id);
+                    if (idx >= 0) list[idx] = ann;
+                    else list.push(ann);
+                    Storage.set('announcements', list);
+                    return ann;
+                },
+                delete(id) {
+                    let list = this.getAll();
+                    list = list.filter(a => a.id !== id);
+                    Storage.set('announcements', list);
+                    const comments = Storage.get('comments', {});
+                    delete comments[id];
+                    Storage.set('comments', comments);
+                },
+                duplicate(id) {
+                    const original = this.get(id);
+                    if (!original) return null;
+                    const copy = JSON.parse(JSON.stringify(original));
+                    copy.id = Utils.randomId();
+                    copy.title = original.title + ' (Copy)';
+                    copy.createdAt = Utils.now();
+                    copy.views = 0; copy.likes = 0; copy.comments = 0;
+                    copy.status = 'Draft';
+                    this.save(copy);
+                    return copy;
+                },
+                getPublished() {
+                    return this.getAll().filter(a => a.status === 'Published').sort((a, b) => new Date(b.publishDate || b.createdAt) - new Date(a.publishDate || a.createdAt));
+                },
+                getDrafts() { return this.getAll().filter(a => a.status === 'Draft'); },
+                getArchived() { return this.getAll().filter(a => a.status === 'Archived'); },
+                getStats() {
+                    const all = this.getAll();
+                    const published = all.filter(a => a.status === 'Published');
+                    const drafts = all.filter(a => a.status === 'Draft');
+                    const today = Utils.dateStr(new Date());
+                    const todayPosts = published.filter(a => Utils.dateStr(new Date(a.publishDate || a.createdAt)) === today);
+                    let views = 0, likes = 0, comments = 0;
+                    published.forEach(a => { views += a.views || 0; likes += a.likes || 0; comments += a.comments || 0; });
+                    return { total: published.length, drafts: drafts.length, today: todayPosts.length, views, likes, comments, latest: published.length > 0 ? published[0] : null };
+                },
+                incrementViews(id) {
+                    const ann = this.get(id);
+                    if (ann) { ann.views = (ann.views || 0) + 1; this.save(ann); }
+                },
+                getMonthlyViews() {
+                    const all = this.getPublished();
+                    const months = {};
+                    all.forEach(a => {
+                        const d = new Date(a.publishDate || a.createdAt);
+                        const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+                        months[key] = (months[key] || 0) + (a.views || 0);
+                    });
+                    return months;
+                }
+            };
+
+            // ========================================================================
+            //  COMMENTS
+            // ========================================================================
+            const Comments = {
+                getForPost(postId) { const all = Storage.get('comments', {}); return (all[postId] || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); },
+                getAllComments() {
+                    const all = Storage.get('comments', {}); const result = [];
+                    for (const postId of Object.keys(all)) {
+                        all[postId].forEach(c => {
+                            result.push({ ...c, postId });
+                            if (c.replies) c.replies.forEach(r => { result.push({ ...r, postId, parentId: c.id }); });
+                        });
+                    }
+                    return result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                },
+                deleteComment(postId, commentId) {
+                    const all = Storage.get('comments', {});
+                    if (!all[postId]) return;
+                    const before = all[postId].length;
+                    all[postId] = all[postId].filter(c => c.id !== commentId);
+                    if (all[postId].length !== before) {
+                        Storage.set('comments', all);
+                        const ann = Announcement.get(postId);
+                        if (ann) { ann.comments = Math.max(0, (ann.comments || 0) - 1); Announcement.save(ann); }
+                    }
+                },
+                deleteReply(postId, commentId, replyId) {
+                    const all = Storage.get('comments', {});
+                    if (!all[postId]) return;
+                    const parent = all[postId].find(c => c.id === commentId);
+                    if (!parent || !parent.replies) return;
+                    const before = parent.replies.length;
+                    parent.replies = parent.replies.filter(r => r.id !== replyId);
+                    if (parent.replies.length !== before) {
+                        Storage.set('comments', all);
+                        const ann = Announcement.get(postId);
+                        if (ann) { ann.comments = Math.max(0, (ann.comments || 0) - 1); Announcement.save(ann); }
+                    }
+                },
+                add(postId, username, text, avatar = '👤') {
+                    const all = Storage.get('comments', {});
+                    if (!all[postId]) all[postId] = [];
+                    const comment = { id: Utils.randomId(), username, text, avatar, createdAt: Utils.now(), likes: 0, replies: [] };
+                    all[postId].push(comment);
+                    Storage.set('comments', all);
+                    const ann = Announcement.get(postId);
+                    if (ann) { ann.comments = (ann.comments || 0) + 1; Announcement.save(ann); }
+                    return comment;
+                }
+            };
+
+            // ========================================================================
+            //  IMAGE MODULE
+            // ========================================================================
+            const ImageModule = {
+                cache: {},
+                resolveUrl: (url) => {
+                    if (!url) return url;
+                    if (Utils.isGoogleDriveUrl(url)) {
+                        const converted = Utils.convertGoogleDriveUrl(url);
+                        if (converted !== url) console.log('📁 Google Drive converted:', url, '→', converted);
+                        return converted;
+                    }
+                    return url;
+                },
+                load(url, imgElement, placeholderText) {
+                    const resolvedUrl = this.resolveUrl(url);
+                    if (!resolvedUrl) {
+                        imgElement.style.display = 'none';
+                        if (placeholderText) placeholderText.style.display = 'flex';
+                        return;
+                    }
+                    if (this.cache[resolvedUrl]) {
+                        imgElement.src = this.cache[resolvedUrl];
+                        imgElement.style.display = 'block';
+                        if (placeholderText) placeholderText.style.display = 'none';
+                        return;
+                    }
+                    if (!Utils.isImageUrl(resolvedUrl) && !Utils.isGoogleDriveUrl(url)) {
+                        imgElement.style.display = 'none';
+                        if (placeholderText) { placeholderText.style.display = 'flex'; placeholderText.innerHTML = '<span class="icon">⚠️</span> Invalid image URL'; }
+                        return;
+                    }
+                    imgElement.src = resolvedUrl;
+                    imgElement.style.display = 'block';
+                    if (placeholderText) placeholderText.style.display = 'none';
+                    imgElement.onload = () => { this.cache[resolvedUrl] = resolvedUrl; };
+                    imgElement.onerror = () => {
+                        imgElement.style.display = 'none';
+                        if (placeholderText) { placeholderText.style.display = 'flex'; placeholderText.innerHTML = '<span class="icon">❌</span> Failed to load image. Check the URL.'; }
+                        delete this.cache[resolvedUrl];
+                    };
+                },
+                previewFromInput(url, previewWrap, imgElement, placeholderText) {
+                    if (!url || !url.trim()) {
+                        imgElement.style.display = 'none';
+                        placeholderText.style.display = 'flex';
+                        placeholderText.innerHTML = '<span class="icon">🖼️</span> No image selected. Paste a valid URL.';
+                        previewWrap.classList.remove('has-image');
+                        return;
+                    }
+                    const trimmed = url.trim();
+                    if (Utils.isGoogleDriveUrl(trimmed) || Utils.isImageUrl(trimmed)) {
+                        this.load(trimmed, imgElement, placeholderText);
+                        previewWrap.classList.add('has-image');
+                    } else {
+                        imgElement.style.display = 'none';
+                        placeholderText.style.display = 'flex';
+                        placeholderText.innerHTML = '<span class="icon">⚠️</span> Not a valid image URL.';
+                        previewWrap.classList.remove('has-image');
+                    }
+                }
+            };
+
+            // ========================================================================
+            //  TOAST
+            // ========================================================================
+            const Toast = {
+                show(message, type = 'info', duration = 4500) {
+                    const container = Utils.id('toastContainer');
+                    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+                    const toast = document.createElement('div');
+                    toast.className = 'toast ' + type;
+                    toast.innerHTML = `<span class="icon">${icons[type] || 'ℹ️'}</span><span class="msg">${message}</span><span class="close">✕</span><div class="progress"></div>`;
+                    container.appendChild(toast);
+                    toast.querySelector('.close').addEventListener('click', () => {
+                        toast.style.opacity = '0';
+                        toast.style.transform = 'translateX(40px)';
+                        setTimeout(() => toast.remove(), 300);
+                    });
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.style.opacity = '0';
+                            toast.style.transform = 'translateX(40px)';
+                            setTimeout(() => toast.remove(), 300);
+                        }
+                    }, duration);
+                },
+                success(msg) { this.show(msg, 'success'); },
+                error(msg) { this.show(msg, 'error'); },
+                warning(msg) { this.show(msg, 'warning'); },
+                info(msg) { this.show(msg, 'info'); }
+            };
+
+            // ========================================================================
+            //  RENDER HELPERS (Dashboard, Manage, Comments, Users)
+            // ========================================================================
+            const Dashboard = {
+                render() {
+                    const stats = Announcement.getStats();
+                    Utils.id('statPublished').textContent = stats.total;
+                    Utils.id('statDrafts').textContent = stats.drafts;
+                    Utils.id('statToday').textContent = stats.today;
+                    Utils.id('statComments').textContent = stats.comments;
+                    Utils.id('statViews').textContent = stats.views;
+                    const latestEl = Utils.id('latestAnnouncement');
+                    if (stats.latest) {
+                        const a = stats.latest;
+                        latestEl.innerHTML = `<div style="display:flex;gap:12px;align-items:center;"><div style="font-size:32px;">📄</div><div><div style="font-family:var(--font-heading);font-weight:600;font-size:15px;color:var(--text-primary);">${Utils.truncate(a.title, 60)}</div><div style="font-size:13px;color:var(--text-muted);">${Utils.formatDateTime(a.publishDate || a.createdAt)} · ${a.author}</div></div></div>`;
+                    } else { latestEl.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">No releases yet.</p>'; }
+                    const activity = Storage.get('activity', []);
+                    const recentEl = Utils.id('recentActivity');
+                    if (activity.length === 0) { recentEl.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">No activity recorded.</p>'; } else {
+                        const recent = activity.slice(-5).reverse();
+                        recentEl.innerHTML = recent.map(a => `<div class="activity-item"><span>${a.icon || '📌'}</span><span>${a.text}</span><span class="time">${Utils.formatTime(a.time)}</span></div>`).join('');
+                    }
+                    this.renderChart();
+                },
+                renderChart() {
+                    const canvas = Utils.id('chartCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width || 600;
+                    canvas.height = 160;
+                    const monthly = Announcement.getMonthlyViews();
+                    const labels = Object.keys(monthly).sort();
+                    const values = labels.map(k => monthly[k]);
+                    if (labels.length === 0) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = '#8896ab'; ctx.font = '14px sans-serif'; ctx.textAlign = 'center';
+                        ctx.fillText('No data yet', canvas.width / 2, canvas.height / 2);
+                        return;
+                    }
+                    const isDark = document.body.classList.contains('dark');
+                    const textColor = isDark ? '#94a3b8' : '#4a5568';
+                    const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+                    const barColor = isDark ? '#3b82f6' : '#0b2545';
+                    const barColor2 = isDark ? '#60a5fa' : '#1a3c6e';
+                    const max = Math.max(...values, 1);
+                    const padding = { top: 20, bottom: 24, left: 30, right: 20 };
+                    const chartW = canvas.width - padding.left - padding.right;
+                    const chartH = canvas.height - padding.top - padding.bottom;
+                    const barW = Math.min(chartW / labels.length * 0.6, 40);
+                    const gap = chartW / labels.length;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.strokeStyle = gridColor;
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i <= 4; i++) {
+                        const y = padding.top + chartH - (i / 4) * chartH;
+                        ctx.beginPath(); ctx.moveTo(padding.left, y); ctx.lineTo(canvas.width - padding.right, y); ctx.stroke();
+                        ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
+                        ctx.fillText(Math.round((i / 4) * max), padding.left - 6, y + 4);
+                    }
+                    labels.forEach((label, i) => {
+                        const x = padding.left + i * gap + (gap - barW) / 2;
+                        const h = (values[i] / max) * chartH;
+                        const y = padding.top + chartH - h;
+                        const grad = ctx.createLinearGradient(x, y, x, padding.top + chartH);
+                        grad.addColorStop(0, barColor); grad.addColorStop(1, barColor2);
+                        ctx.fillStyle = grad;
+                        ctx.beginPath(); ctx.roundRect(x, y, barW, h, [4, 4, 0, 0]); ctx.fill();
+                        ctx.fillStyle = textColor; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+                        const shortLabel = label.split('-').slice(1).join('/');
+                        ctx.fillText(shortLabel, x + barW / 2, padding.top + chartH + 16);
+                    });
+                }
+            };
+            if (!CanvasRenderingContext2D.prototype.roundRect) {
+                CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                    if (r.length === 1) r = [r[0], r[0], r[0], r[0]];
+                    const [tl, tr, br, bl] = r.map(v => Math.min(v, Math.min(w, h) / 2));
+                    this.moveTo(x + tl, y); this.lineTo(x + w - tr, y);
+                    this.quadraticCurveTo(x + w, y, x + w, y + tr);
+                    this.lineTo(x + w, y + h - br);
+                    this.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+                    this.lineTo(x + bl, y + h);
+                    this.quadraticCurveTo(x, y + h, x, y + h - bl);
+                    this.lineTo(x, y + tl); this.quadraticCurveTo(x, y, x + tl, y);
+                    this.closePath(); return this;
+                };
+            }
+
+            const Manage = {
+                render() {
+                    const container = Utils.id('manageList');
+                    const all = Announcement.getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    if (all.length === 0) { container.innerHTML = `<div class="empty-state" style="text-align:center;padding:48px 20px;color:var(--text-muted);"><div class="icon" style="font-size:64px;opacity:0.3;margin-bottom:12px;">📂</div><h3 style="font-size:20px;color:var(--text-primary);margin-bottom:4px;">No press releases</h3><p style="font-size:14px;">Create your first release.</p></div>`; return; }
+                    container.innerHTML = all.map(a => `
+                        <div class="press-card" style="padding:16px;margin-bottom:16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+                            <div style="flex:1;min-width:140px;">
+                                <div style="font-family:var(--font-heading);font-weight:600;color:var(--text-primary);">${Utils.truncate(a.title, 50)}</div>
+                                <div style="font-size:13px;color:var(--text-muted);">${a.status} · ${Utils.formatDateTime(a.publishDate || a.createdAt)}</div>
+                            </div>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                <button class="btn-manage" data-action="view" data-id="${a.id}" style="padding:4px 14px;border-radius:12px;background:var(--text-primary);color:#fff;font-size:13px;font-weight:600;">👁️ View</button>
+                                <button class="btn-manage" data-action="edit" data-id="${a.id}" style="padding:4px 14px;border-radius:12px;background:var(--accent-gold);color:#fff;font-size:13px;font-weight:600;">✏️ Edit</button>
+                                <button class="btn-manage" data-action="duplicate" data-id="${a.id}" style="padding:4px 14px;border-radius:12px;background:var(--success);color:#fff;font-size:13px;font-weight:600;">📋 Copy</button>
+                                <button class="btn-manage" data-action="toggle" data-id="${a.id}" style="padding:4px 14px;border-radius:12px;background:var(--warning);color:#2d3436;font-size:13px;font-weight:600;">${a.status === 'Published' ? '📥 Unpublish' : '📤 Publish'}</button>
+                                <button class="btn-manage" data-action="delete" data-id="${a.id}" style="padding:4px 14px;border-radius:12px;background:var(--danger);color:#fff;font-size:13px;font-weight:600;">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('');
+                    container.querySelectorAll('.btn-manage').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const action = btn.dataset.action;
+                            const id = btn.dataset.id;
+                            const ann = Announcement.get(id);
+                            if (!ann) { Toast.error('Release not found.'); return; }
+                            if (action === 'view') { navigateTo('read', id); }
+                            else if (action === 'edit') { loadAnnouncementForEdit(id); navigateTo('create'); }
+                            else if (action === 'duplicate') { const copy = Announcement.duplicate(id); if (copy) { Toast.success('Duplicated!'); Manage.render(); Dashboard.render(); } }
+                            else if (action === 'toggle') { ann.status = ann.status === 'Published' ? 'Draft' : 'Published'; Announcement.save(ann); Manage.render(); Dashboard.render(); Toast.success(`Release ${ann.status === 'Published' ? 'published' : 'unpublished'}.`); }
+                            else if (action === 'delete') { if (confirm('Delete this press release permanently?')) { Announcement.delete(id); Manage.render(); Dashboard.render(); Toast.success('Deleted.'); } }
+                        });
+                    });
+                }
+            };
+
+            const AllComments = {
+                render() {
+                    const container = Utils.id('commentsListAll');
+                    const all = Comments.getAllComments();
+                    if (all.length === 0) { container.innerHTML = `<div class="empty-state" style="text-align:center;padding:48px 20px;color:var(--text-muted);"><div class="icon" style="font-size:64px;opacity:0.3;margin-bottom:12px;">💬</div><h3 style="font-size:20px;color:var(--text-primary);margin-bottom:4px;">No comments</h3><p style="font-size:14px;">No comments have been posted yet.</p></div>`; return; }
+                    container.innerHTML = all.map(c => `
+                        <div class="comment-item" style="border-bottom:1px solid var(--border-subtle);padding:12px 0;">
+                            <div class="avatar">${c.avatar || '👤'}</div>
+                            <div class="body">
+                                <div class="name">${Utils.sanitize(c.username)} ${c.parentId ? '<span style="font-size:11px;color:var(--text-muted);">(reply)</span>' : ''}</div>
+                                <div class="text">${Utils.sanitize(c.text)}</div>
+                                <div class="meta">
+                                    <span>${Utils.formatDateTime(c.createdAt)}</span>
+                                    <span>❤️ ${c.likes || 0}</span>
+                                    <span style="font-size:12px;color:var(--text-muted);">Release: ${Utils.truncate(Announcement.get(c.postId)?.title || 'Unknown', 30)}</span>
+                                    <button class="danger delete-comment-all" data-post="${c.postId}" data-id="${c.id}" ${c.parentId ? `data-reply="${c.id}" data-parent="${c.parentId}"` : ''}>🗑️ Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    container.querySelectorAll('.delete-comment-all').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            if (confirm('Delete this comment?')) {
+                                const postId = btn.dataset.post, id = btn.dataset.id, parentId = btn.dataset.parent, replyId = btn.dataset.reply;
+                                if (parentId && replyId) Comments.deleteReply(postId, parentId, replyId);
+                                else Comments.deleteComment(postId, id);
+                                AllComments.render(); Dashboard.render(); Toast.success('Deleted.');
+                            }
+                        });
+                    });
+                }
+            };
+
+            const UsersPage = {
+                render() {
+                    const tbody = Utils.id('userTableBody');
+                    const users = Users.getAll();
+                    if (users.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">No users registered yet.</td></tr>`; return; }
+                    tbody.innerHTML = users.map(u => `
+                        <tr>
+                            <td><strong style="color:var(--text-primary);">${Utils.sanitize(u.username)}</strong></td>
+                            <td>${Utils.sanitize(u.email)}</td>
+                            <td><span class="role-badge ${u.role}">${u.role === 'admin' ? 'Admin' : 'User'}</span></td>
+                            <td><span class="status-badge ${u.status}">${u.status}</span></td>
+                            <td>
+                                <div class="user-actions">
+                                    <button class="btn-edit" data-id="${u.id}" data-username="${Utils.sanitize(u.username)}" data-email="${Utils.sanitize(u.email)}">✏️ Edit</button>
+                                    ${u.status === 'active' ? `<button class="btn-suspend" data-id="${u.id}">🚫 Suspend</button>` : `<button class="btn-unsuspend" data-id="${u.id}">✅ Unsuspend</button>`}
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+
+                    // Edit Button -> Open Modal
+                    tbody.querySelectorAll('.btn-edit').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const modal = Utils.id('userEditModal');
+                            Utils.id('editUserId').value = btn.dataset.id;
+                            Utils.id('editUsername').value = btn.dataset.username;
+                            Utils.id('editEmail').value = btn.dataset.email;
+                            Utils.id('editPassword').value = '';
+                            modal.classList.add('active');
+                        });
+                    });
+
+                    // Suspend/Unsuspend
+                    tbody.querySelectorAll('.btn-suspend, .btn-unsuspend').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            if (confirm('Are you sure you want to change this user\'s status?')) {
+                                const result = Users.toggleStatus(btn.dataset.id);
+                                if (result.success) { Toast.success(`User status changed to ${result.newStatus}.`); UsersPage.render(); } else { Toast.error(result.error); }
+                            }
+                        });
+                    });
+                }
+            };
+
+            // ========================================================================
+            //  READ MORE & PUBLIC VIEW
+            // ========================================================================
+            const ReadMore = {
+                render(id) {
+                    const ann = Announcement.get(id);
+                    if (!ann) { Utils.id('readContent').innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>Not found</h3><p>This release does not exist.</p></div>`; return; }
+                    Announcement.incrementViews(id);
+                    const container = Utils.id('readContent');
+                    container.innerHTML = `
+                        <div class="readmore-header">
+                            ${ann.featuredImage ? `<img src="${ann.featuredImage}" alt="${Utils.sanitize(ann.title)}" onerror="this.style.display='none'" />` : ''}
+                            <div class="overlay">
+                                <div class="meta-pill">
+                                    <span>${Utils.formatDateTime(ann.publishDate || ann.createdAt)}</span>
+                                    <span>👁️ ${ann.views || 0} views</span>
+                                    <span class="badge badge-priority-${ann.priority}" style="font-size:11px;background:var(--bg-paper);color:var(--text-secondary);border:1px solid var(--border-subtle);">${ann.priority}</span>
+                                </div>
+                                <h1>${Utils.sanitize(ann.title)}</h1>
+                                ${ann.subtitle ? `<p class="subtitle">${Utils.sanitize(ann.subtitle)}</p>` : ''}
+                                <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--text-muted);">
+                                    <span>✍️ ${Utils.sanitize(ann.author)}</span>
+                                    ${ann.tags ? `<span>🏷️ ${ann.tags.split(',').map(t => `<span style="background:var(--bg-paper);padding:0 10px;border-radius:12px;border:1px solid var(--border-subtle);">${t.trim()}</span>`).join(' ')}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="readmore-body">
+                            <div class="content">${ann.body || '<p style="color:var(--text-muted);">No content.</p>'}
+                                <div style="margin-top:40px;padding-top:20px;border-top:1px solid var(--border-subtle);display:flex;gap:12px;flex-wrap:wrap;">
+                                    <button class="btn-read" id="shareBtn" style="padding:10px 24px;border-radius:20px;background:var(--surface);border:1px solid var(--border-subtle);font-weight:600;color:var(--text-secondary);">📤 Share</button>
+                                    <button class="btn-read" id="printBtn" style="padding:10px 24px;border-radius:20px;background:var(--surface);border:1px solid var(--border-subtle);font-weight:600;color:var(--text-secondary);">🖨️ Print</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-info">
+                                <div class="info-item"><span class="label">Published</span><span class="value">${Utils.formatDateTime(ann.publishDate || ann.createdAt)}</span></div>
+                                <div class="info-item"><span class="label">Views</span><span class="value">${ann.views || 0}</span></div>
+                                ${ann.tags ? `<div class="info-item"><span class="label">Tags</span><span class="value">${ann.tags}</span></div>` : ''}
+                            </div>
+                        </div>
+                        <div class="comments-section" id="commentsSection"><h3>💬 Comments (${ann.comments || 0})</h3><div id="commentsList"></div></div>
+                    `;
+                    // Native Share
+                    Utils.id('shareBtn').addEventListener('click', () => {
+                        const publicUrl = Utils.getPublicUrl(ann.id);
+                        const title = ann.title; const text = ann.summary || ann.title;
+                        if (navigator.share) { navigator.share({ title, text, url: publicUrl }).catch(() => {}); } else { navigator.clipboard.writeText(publicUrl).then(() => Toast.success('Link copied!')).catch(() => { prompt('Copy this link to share:', publicUrl); }); }
+                    });
+                    Utils.id('printBtn').addEventListener('click', () => { window.print(); });
+                    this.renderComments(id);
+                },
+                renderComments(postId) {
+                    const list = Utils.id('commentsList');
+                    const comments = Comments.getForPost(postId);
+                    if (comments.length === 0) { list.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">No comments yet.</p>'; return; }
+                    list.innerHTML = comments.map(c => `
+                        <div class="comment-item">
+                            <div class="avatar">${c.avatar || '👤'}</div>
+                            <div class="body">
+                                <div class="name">${Utils.sanitize(c.username)}</div>
+                                <div class="text">${Utils.sanitize(c.text)}</div>
+                                <div class="meta">
+                                    <span>${Utils.formatDateTime(c.createdAt)}</span>
+                                    <span>❤️ ${c.likes || 0}</span>
+                                    <button class="danger delete-comment" data-id="${c.id}">🗑️ Delete</button>
+                                </div>
+                                ${c.replies && c.replies.length > 0 ? `<div style="margin-left:20px;margin-top:8px;border-left:2px solid var(--border-subtle);padding-left:12px;">${c.replies.map(r => `
+                                    <div class="comment-item" style="border-bottom:none;padding:4px 0;">
+                                        <div class="avatar" style="width:28px;height:28px;font-size:12px;">${r.avatar || '👤'}</div>
+                                        <div class="body">
+                                            <div class="name">${Utils.sanitize(r.username)}</div>
+                                            <div class="text">${Utils.sanitize(r.text)}</div>
+                                            <div class="meta">
+                                                <span>${Utils.formatDateTime(r.createdAt)}</span>
+                                                <span>❤️ ${r.likes || 0}</span>
+                                                <button class="danger delete-reply" data-comment="${c.id}" data-reply="${r.id}">🗑️ Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                    list.querySelectorAll('.delete-comment, .delete-reply').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            if (confirm('Delete this comment?')) {
+                                if (btn.classList.contains('delete-comment')) Comments.deleteComment(postId, btn.dataset.id);
+                                else Comments.deleteReply(postId, btn.dataset.comment, btn.dataset.reply);
+                                ReadMore.renderComments(postId);
+                                const ann = Announcement.get(postId); if (ann) { ann.comments = Math.max(0, (ann.comments || 0) - 1); Announcement.save(ann); }
+                                Dashboard.render(); Toast.success('Deleted.');
+                            }
+                        });
+                    });
+                }
+            };
+
+            // ========================================================================
+            //  NAVIGATION & CORE APP LOGIC
+            // ========================================================================
+            let currentPage = 'dashboard';
+            function navigateTo(page, data) {
+                Utils.qsa('.page').forEach(p => p.classList.remove('active'));
+                const pageMap = { dashboard: 'pageDashboard', create: 'pageCreate', manage: 'pageManage', comments: 'pageComments', users: 'pageUsers', read: 'pageRead', settings: 'pageSettings' };
+                const target = Utils.id(pageMap[page]); if (target) target.classList.add('active');
+                Utils.qsa('.nav-item[data-page]').forEach(n => n.classList.remove('active'));
+                const navItem = Utils.qs(`.nav-item[data-page="${page}"]`);
+                if (navItem) navItem.classList.add('active');
+                const titles = { dashboard: 'Dashboard', create: 'New Press Release', manage: 'Manage Releases', comments: 'Comments', users: 'Users', read: 'Press Release', settings: 'Settings' };
+                Utils.id('pageTitle').textContent = titles[page] || 'Dashboard';
+                Utils.id('breadcrumbCurrent').textContent = titles[page] || 'Dashboard';
+                currentPage = page;
+                if (page === 'dashboard') Dashboard.render();
+                else if (page === 'manage') Manage.render();
+                else if (page === 'comments') AllComments.render();
+                else if (page === 'users') UsersPage.render();
+                else if (page === 'read' && data) { ReadMore.render(data); }
+                Utils.id('sidebar').classList.remove('open');
+            }
+
+            function loadAnnouncementForEdit(id) {
+                const ann = Announcement.get(id); if (!ann) return;
+                Utils.id('annTitle').value = ann.title || '';
+                Utils.id('annSubtitle').value = ann.subtitle || '';
+                Utils.id('annAuthor').value = ann.author || '';
+                Utils.id('annSummary').value = ann.summary || '';
+                Utils.id('annPriority').value = ann.priority || 'Normal';
+                const dt = ann.publishDate || ann.createdAt;
+                if (dt) { const d = new Date(dt); if (!isNaN(d.getTime())) { const offset = d.getTimezoneOffset() * 60000; const local = new Date(d.getTime() - offset); Utils.id('annDateTime').value = local.toISOString().slice(0, 16); } }
+                Utils.id('annTags').value = ann.tags || '';
+                Utils.id('annStatus').value = ann.status || 'Published';
+                Utils.id('rteEditor').innerHTML = ann.body || '';
+                updateRteStats();
+                if (ann.featuredImage) {
+                    const wrap = Utils.id('imagePreviewWrap');
+                    const img = wrap.querySelector('img') || document.createElement('img');
+                    if (!wrap.querySelector('img')) { img.style.width = '100%'; img.style.maxHeight = '320px'; img.style.objectFit = 'cover'; img.style.borderRadius = 'var(--radius-sm)'; wrap.prepend(img); }
+                    const placeholder = wrap.querySelector('.placeholder-text');
+                    ImageModule.load(ann.featuredImage, img, placeholder);
+                    wrap.classList.add('has-image');
+                    Utils.id('imgUrlInput').value = ann.featuredImage;
+                }
+                Utils.id('createForm').dataset.editId = id;
+                Utils.id('createForm').querySelector('button[type="submit"]').textContent = 'Update Release';
+                Utils.id('cancelEditBtn').style.display = 'inline-block';
+            }
+
+            function updateRteStats() {
+                const html = Utils.id('rteEditor').innerHTML;
+                Utils.id('wordCount').textContent = Utils.wordCount(html);
+                Utils.id('charCount').textContent = Utils.charCount(html);
+                Utils.id('lineCount').textContent = Utils.lineCount(html);
+            }
+
+            // ========================================================================
+            //  INIT
+            // ========================================================================
+            function init() {
+                const hash = window.location.hash;
+                if (hash && hash.startsWith('#publicPost-')) {
+                    const id = hash.replace('#publicPost-', '');
+                    Utils.id('loginScreen').style.display = 'none'; Utils.id('app').classList.remove('active'); Utils.id('publicView').classList.add('active');
+                    renderPublicView(id);
+                    Utils.id('publicLoginBtn').addEventListener('click', showPublicLoginModal);
+                    Utils.id('publicRegisterBtn').addEventListener('click', showPublicRegisterModal);
+                    Utils.id('publicSubmitComment').addEventListener('click', () => {
+                        const text = Utils.id('publicCommentText').value.trim();
+                        if (!text) { Toast.warning('Write a comment.'); return; }
+                        if (!publicUser) { Toast.error('Please login first.'); return; }
+                        Comments.add(publicPostId, publicUser.username, text, Utils.generateAvatar(publicUser.username));
+                        Utils.id('publicCommentText').value = ''; renderPublicComments(publicPostId);
+                        Toast.success('Comment posted!');
+                    });
+                    return;
+                }
+
+                const session = Auth.getSession();
+                if (session && session.loggedIn) showApp();
+                else { const remembered = Auth.restoreSession(); if (remembered) showApp(); else showLogin(); }
+
+                Announcement.getAll(); // init storage
+                initDemoData();
+
+                Utils.id('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = Utils.id('loginEmail').value.trim(), password = Utils.id('loginPassword').value, remember = Utils.id('rememberMe').checked;
+                    const errorEl = Utils.id('loginError'), loader = Utils.id('loginLoader'), btn = Utils.id('loginBtn');
+                    errorEl.classList.remove('show'); errorEl.textContent = ''; loader.classList.add('active'); btn.disabled = true;
+                    setTimeout(() => {
+                        const result = Auth.login(email, password, remember);
+                        loader.classList.remove('active'); btn.disabled = false;
+                        if (result.success) { showApp(); Toast.success('Welcome back, NAEEES Press!'); } else { errorEl.textContent = result.error; errorEl.classList.add('show'); }
+                    }, 800);
+                });
+                Utils.id('togglePw').addEventListener('click', () => { const pw = Utils.id('loginPassword'); pw.type = pw.type === 'password' ? 'text' : 'password'; });
+                Utils.id('logoutBtn').addEventListener('click', () => { Auth.logout(); hideApp(); showLogin(); Toast.info('Logged out.'); });
+                Utils.qsa('.nav-item[data-page]').forEach(item => { item.addEventListener('click', () => { const page = item.dataset.page; if (page === 'create') resetCreateForm(); navigateTo(page); }); });
+                Utils.id('hamburger').addEventListener('click', () => { Utils.id('sidebar').classList.toggle('open'); });
+                Utils.id('darkToggle').addEventListener('click', () => { document.body.classList.toggle('dark'); localStorage.setItem('naees_theme', document.body.classList.contains('dark') ? 'dark' : 'light'); Utils.id('darkToggle').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙'; Dashboard.renderChart(); });
+                const themePref = localStorage.getItem('naees_theme') || 'light'; if (themePref === 'dark') { document.body.classList.add('dark'); Utils.id('darkToggle').textContent = '☀️'; }
+
+                // RTE Setup
+                const rteEditor = Utils.id('rteEditor');
+                Utils.qsa('#rteToolbar button[data-cmd]').forEach(btn => {
+                    btn.addEventListener('mousedown', (e) => { e.preventDefault(); Utils.saveSelection(); });
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault(); Utils.restoreSelection(); rteEditor.focus();
+                        const cmd = btn.dataset.cmd; const val = btn.dataset.value || null;
+                        if (cmd === 'insertInlineImageUrl') {
+                            const url = prompt('Enter image URL:'); if (url && url.trim()) { const resolved = ImageModule.resolveUrl(url.trim()); Utils.insertImageAtCursor(resolved, 'Inline image'); } updateRteStats(); return;
+                        }
+                        try { document.execCommand(cmd, false, val); } catch (err) { Toast.error('Command failed: ' + err.message); }
+                        updateRteStats(); rteEditor.focus();
+                    });
+                });
+                Utils.id('continueWritingBtn').addEventListener('click', (e) => {
+                    e.preventDefault(); const editor = Utils.id('rteEditor'); const range = document.createRange(); const sel = window.getSelection(); range.selectNodeContents(editor); range.collapse(false); sel.removeAllRanges(); sel.addRange(range); editor.focus(); Toast.info('Cursor moved to the end — continue writing!'); updateRteStats();
+                });
+                rteEditor.addEventListener('input', updateRteStats); rteEditor.addEventListener('keyup', updateRteStats);
+
+                // Create Form
+                Utils.id('createForm').addEventListener('submit', (e) => {
+                    e.preventDefault(); const title = Utils.id('annTitle').value.trim(); const body = Utils.id('rteEditor').innerHTML.trim();
+                    if (!title || !body || body === '<br>' || body === '') { Toast.error('Please fill in title and body.'); return; }
+                    const editId = Utils.id('createForm').dataset.editId; let ann;
+                    if (editId) { ann = Announcement.get(editId); if (!ann) { Toast.error('Release not found.'); return; } } else { ann = { id: Utils.randomId(), createdAt: Utils.now(), views: 0, likes: 0, comments: 0 }; }
+                    ann.title = title; ann.subtitle = Utils.id('annSubtitle').value.trim(); ann.body = body;
+                    ann.summary = Utils.id('annSummary').value.trim() || Utils.truncate(Utils.stripHtml(body), 150);
+                    ann.author = Utils.id('annAuthor').value.trim() || 'NAEEES Press Team';
+                    ann.priority = Utils.id('annPriority').value;
+                    const dtVal = Utils.id('annDateTime').value; ann.publishDate = dtVal ? new Date(dtVal).toISOString() : Utils.now();
+                    ann.tags = Utils.id('annTags').value.trim(); ann.status = Utils.id('annStatus').value;
+                    const imgUrl = Utils.id('imgUrlInput').value.trim();
+                    if (imgUrl && (Utils.isImageUrl(imgUrl) || Utils.isGoogleDriveUrl(imgUrl))) ann.featuredImage = imgUrl;
+                    else ann.featuredImage = ann.featuredImage || '';
+                    Announcement.save(ann); finishSave(ann, editId);
+                });
+
+                function finishSave(ann, editId) {
+                    const activity = Storage.get('activity', []); activity.push({ icon: editId ? '✏️' : '📢', text: editId ? `Updated: ${ann.title}` : `Published: ${ann.title}`, time: Utils.now() }); Storage.set('activity', activity);
+                    Toast.success(editId ? 'Press release updated!' : 'Press release published!');
+                    Utils.id('createForm').dataset.editId = ''; Utils.id('createForm').querySelector('button[type="submit"]').textContent = 'Publish Release'; Utils.id('cancelEditBtn').style.display = 'none';
+                    resetCreateForm(); Dashboard.render(); Manage.render(); navigateTo('dashboard');
+                }
+
+                Utils.id('saveDraftBtn').addEventListener('click', () => {
+                    const title = Utils.id('annTitle').value.trim(); const body = Utils.id('rteEditor').innerHTML.trim();
+                    if (!title || !body || body === '<br>') { Toast.warning('Title and body required for draft.'); return; }
+                    const editId = Utils.id('createForm').dataset.editId; let ann;
+                    if (editId) { ann = Announcement.get(editId); if (!ann) { Toast.error('Release not found.'); return; } } else { ann = { id: Utils.randomId(), createdAt: Utils.now(), views: 0, likes: 0, comments: 0 }; }
+                    ann.title = title; ann.subtitle = Utils.id('annSubtitle').value.trim(); ann.body = body; ann.summary = Utils.id('annSummary').value.trim() || Utils.truncate(Utils.stripHtml(body), 150);
+                    ann.author = Utils.id('annAuthor').value.trim() || 'NAEEES Press Team'; ann.priority = Utils.id('annPriority').value;
+                    const dtVal = Utils.id('annDateTime').value; ann.publishDate = dtVal ? new Date(dtVal).toISOString() : Utils.now();
+                    ann.tags = Utils.id('annTags').value.trim(); ann.status = 'Draft';
+                    const imgUrl = Utils.id('imgUrlInput').value.trim(); if (imgUrl && (Utils.isImageUrl(imgUrl) || Utils.isGoogleDriveUrl(imgUrl))) ann.featuredImage = imgUrl;
+                    Announcement.save(ann); Toast.success('Draft saved!');
+                    Utils.id('createForm').dataset.editId = ''; Utils.id('createForm').querySelector('button[type="submit"]').textContent = 'Publish Release'; Utils.id('cancelEditBtn').style.display = 'none';
+                    resetCreateForm(); Dashboard.render(); Manage.render();
+                });
+
+                Utils.id('cancelEditBtn').addEventListener('click', () => { Utils.id('createForm').dataset.editId = ''; Utils.id('createForm').querySelector('button[type="submit"]').textContent = 'Publish Release'; Utils.id('cancelEditBtn').style.display = 'none'; resetCreateForm(); Toast.info('Edit cancelled.'); navigateTo('dashboard'); });
+
+                // Image Preview
+                const imgUrlInput = Utils.id('imgUrlInput'); const previewWrap = Utils.id('imagePreviewWrap');
+                let previewImg = previewWrap.querySelector('img');
+                if (!previewImg) { previewImg = document.createElement('img'); previewImg.style.width = '100%'; previewImg.style.maxHeight = '320px'; previewImg.style.objectFit = 'cover'; previewImg.style.borderRadius = 'var(--radius-sm)'; previewImg.style.display = 'none'; previewWrap.prepend(previewImg); }
+                const placeholderText = previewWrap.querySelector('.placeholder-text');
+                imgUrlInput.addEventListener('input', () => { ImageModule.previewFromInput(imgUrlInput.value, previewWrap, previewImg, placeholderText); });
+                previewWrap.addEventListener('click', (e) => { if (e.target === previewWrap || e.target === placeholderText) { previewImg.style.display = 'none'; placeholderText.style.display = 'flex'; placeholderText.innerHTML = '<span class="icon">🖼️</span> No image selected. Paste a valid URL.'; previewWrap.classList.remove('has-image'); imgUrlInput.value = ''; } });
+
+                // User Edit Modal Logic
+                const userEditModal = Utils.id('userEditModal');
+                const closeModalBtn = Utils.id('closeUserEditModal');
+                const userEditForm = Utils.id('userEditForm');
+                closeModalBtn.addEventListener('click', () => { userEditModal.classList.remove('active'); });
+                userEditModal.addEventListener('click', (e) => { if (e.target === userEditModal) userEditModal.classList.remove('active'); });
+                userEditForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = Utils.id('editUserId').value;
+                    const username = Utils.id('editUsername').value.trim();
+                    const email = Utils.id('editEmail').value.trim();
+                    const password = Utils.id('editPassword').value.trim();
+                    if (!username || !email) { Toast.error('Username and email are required.'); return; }
+                    const result = Users.updateUser(id, username, email, password);
+                    if (result.success) { Toast.success('User updated!'); UsersPage.render(); userEditModal.classList.remove('active'); } else { Toast.error(result.error); }
+                });
+
+                Utils.id('readBackBtn').addEventListener('click', () => { navigateTo('manage'); });
+                Utils.qsa('.back-btn[data-page]').forEach(btn => { btn.addEventListener('click', () => { navigateTo(btn.dataset.page); }); });
+
+                Utils.id('updateProfileBtn').addEventListener('click', () => { const name = Utils.id('settingsName').value.trim(); if (name) { Storage.set('profile_name', name); Toast.success('Profile updated!'); Utils.id('avatarDisplay').textContent = Utils.generateAvatar(name); } });
+                Utils.id('changePwBtn').addEventListener('click', () => { const newPw = Utils.id('settingsNewPw').value.trim(); const result = Auth.changePassword(newPw); if (result.success) { Toast.success('Password changed!'); Utils.id('settingsNewPw').value = ''; } else { Toast.error(result.error); } });
+                Utils.id('themeLight').addEventListener('click', () => { document.body.classList.remove('dark'); localStorage.setItem('naees_theme', 'light'); Utils.id('darkToggle').textContent = '🌙'; Dashboard.renderChart(); });
+                Utils.id('themeDark').addEventListener('click', () => { document.body.classList.add('dark'); localStorage.setItem('naees_theme', 'dark'); Utils.id('darkToggle').textContent = '☀️'; Dashboard.renderChart(); });
+                Utils.id('themeSystem').addEventListener('click', () => { const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; if (prefersDark) { document.body.classList.add('dark'); localStorage.setItem('naees_theme', 'dark'); Utils.id('darkToggle').textContent = '☀️'; } else { document.body.classList.remove('dark'); localStorage.setItem('naees_theme', 'light'); Utils.id('darkToggle').textContent = '🌙'; } Dashboard.renderChart(); });
+                Utils.id('backupDataBtn').addEventListener('click', backupData);
+                Utils.id('restoreDataBtn').addEventListener('click', restoreData);
+                Utils.id('clearDataBtn').addEventListener('click', clearAllData);
+
+                const profileName = Storage.get('profile_name', 'NAEEES Press Team');
+                Utils.id('avatarDisplay').textContent = Utils.generateAvatar(profileName);
+                Utils.id('settingsName').value = profileName;
+
+                Dashboard.render(); Manage.render(); AllComments.render(); UsersPage.render();
+
+                Utils.id('closeLb').addEventListener('click', () => { Utils.id('lightbox').classList.remove('active'); });
+                Utils.id('lightbox').addEventListener('click', (e) => { if (e.target === Utils.id('lightbox')) { Utils.id('lightbox').classList.remove('active'); } });
+                document.addEventListener('click', (e) => { const img = e.target.closest('.readmore-header img'); if (img) { Utils.id('lbImage').src = img.src; Utils.id('lightbox').classList.add('active'); } });
+                let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (currentPage === 'dashboard') Dashboard.renderChart(); }, 300); });
+                console.log('✅ NAEEES PRESS Professional System Initialized.');
+            }
+
+            // ========================================================================
+            //  PUBLIC VIEW HELPERS
+            // ========================================================================
+            let publicPostId = null, publicUser = null;
+            function renderPublicView(id) {
+                publicPostId = id; const ann = Announcement.get(id);
+                if (!ann) { Utils.id('publicContent').innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>Not found</h3><p>This press release does not exist.</p></div>`; return; }
+                publicUser = Users.getCurrent();
+                const container = Utils.id('publicContent');
+                container.innerHTML = `<div class="readmore-header" style="border:none;box-shadow:none;padding-bottom:0;"><div style="text-align:center;"><span style="font-size:14px;color:var(--text-muted);">${Utils.formatDateTime(ann.publishDate || ann.createdAt)}</span><h1 style="font-family:var(--font-heading);font-size:32px;font-weight:700;margin:8px 0;color:var(--text-primary);">${Utils.sanitize(ann.title)}</h1>${ann.subtitle ? `<p style="font-size:18px;color:var(--text-secondary);">${Utils.sanitize(ann.subtitle)}</p>` : ''}</div></div><div class="readmore-body" style="grid-template-columns:1fr;"><div class="content">${ann.body || '<p style="color:var(--text-muted);">No content.</p>'}</div></div>`;
+                const prompt = Utils.id('publicLoginPrompt'), formWrap = Utils.id('publicCommentFormWrap'), commentsList = Utils.id('publicCommentsList');
+                if (publicUser) { prompt.style.display = 'none'; formWrap.style.display = 'block'; renderPublicComments(id); } else { prompt.style.display = 'block'; formWrap.style.display = 'none'; commentsList.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Please login to view comments.</p>'; }
+            }
+            function renderPublicComments(postId) {
+                const list = Utils.id('publicCommentsList'); const comments = Comments.getForPost(postId);
+                if (comments.length === 0) { list.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">No comments yet.</p>'; return; }
+                list.innerHTML = comments.map(c => `<div class="comment-item"><div class="avatar">${c.avatar || '👤'}</div><div class="body"><div class="name">${Utils.sanitize(c.username)}</div><div class="text">${Utils.sanitize(c.text)}</div><div class="meta"><span>${Utils.formatDateTime(c.createdAt)}</span><span>❤️ ${c.likes || 0}</span></div></div></div>`).join('');
+            }
+            function showPublicLoginModal() {
+                const email = prompt('Enter your email:'); if (!email) return;
+                const password = prompt('Enter your password:'); if (!password) return;
+                const result = Users.login(email, password);
+                if (result.success) { publicUser = result.user; Toast.success('Logged in!'); renderPublicView(publicPostId); } else { Toast.error(result.error); }
+            }
+            function showPublicRegisterModal() {
+                const username = prompt('Choose a username:'); if (!username) return;
+                const email = prompt('Enter your email:'); if (!email) return;
+                const password = prompt('Create a password:'); if (!password || password.length < 4) { Toast.error('Password must be at least 4 characters.'); return; }
+                const result = Users.register(username, email, password);
+                if (result.success) { Toast.success('Registered! Please login.'); showPublicLoginModal(); } else { Toast.error(result.error); }
+            }
+
+            // ========================================================================
+            //  INIT DEMO DATA
+            // ========================================================================
+            function initDemoData() {
+                if (Announcement.getAll().length === 0) {
+                    const demoPost = {
+                        id: Utils.randomId(),
+                        title: 'NAEEES Unveils New Educational Reform Initiative',
+                        subtitle: 'A landmark strategy to enhance digital literacy and critical thinking.',
+                        featuredImage: 'https://picsum.photos/seed/naees/800/400',
+                        body: `<p><strong>NAEEES Press Release</strong> — The National Agency is proud to announce a comprehensive reform initiative aimed at revolutionizing the national curriculum.</p><blockquote>"Our goal is to prepare students for a rapidly evolving global landscape," said the Director General.</blockquote><p>We invite all stakeholders to participate in the upcoming public consultations.</p>`,
+                        summary: 'NAEEES announces a new educational reform initiative focusing on digital literacy and critical thinking.',
+                        author: 'NAEEES Press Team',
+                        priority: 'Important',
+                        publishDate: Utils.now(),
+                        tags: 'policy, education, reform',
+                        status: 'Published',
+                        createdAt: Utils.now(),
+                        views: 120,
+                        likes: 15,
+                        comments: 4
+                    };
+                    Announcement.save(demoPost);
+                    Comments.add(demoPost.id, 'Dr. Adebayo', 'A very welcome development. Looking forward to the details.');
+                    Comments.add(demoPost.id, 'Parents Association', 'We support this initiative completely.');
+                    Comments.add(demoPost.id, 'Prof. Okonkwo', 'This is exactly what our education system needs.');
+                    Storage.set('activity', [{ icon: '📢', text: 'New policy framework published', time: Utils.now() }, { icon: '💬', text: 'First community comments posted', time: Utils.now() }]);
+                }
+                Users.initDemo();
+            }
+
+            // ========================================================================
+            //  HELPERS
+            // ========================================================================
+            function showLogin() { Utils.id('loginScreen').style.display = 'flex'; Utils.id('app').classList.remove('active'); Utils.id('publicView').classList.remove('active'); }
+            function showApp() { Utils.id('loginScreen').style.display = 'none'; Utils.id('app').classList.add('active'); Utils.id('publicView').classList.remove('active'); }
+            function hideApp() { Utils.id('app').classList.remove('active'); }
+            function resetCreateForm() {
+                Utils.id('createForm').reset(); Utils.id('rteEditor').innerHTML = ''; Utils.id('createForm').dataset.editId = '';
+                Utils.id('createForm').querySelector('button[type="submit"]').textContent = 'Publish Release'; Utils.id('cancelEditBtn').style.display = 'none';
+                Utils.id('imagePreviewWrap').classList.remove('has-image');
+                const img = Utils.id('imagePreviewWrap').querySelector('img'); if (img) img.style.display = 'none';
+                const placeholder = Utils.id('imagePreviewWrap').querySelector('.placeholder-text');
+                if (placeholder) { placeholder.style.display = 'flex'; placeholder.innerHTML = '<span class="icon">🖼️</span> No image selected. Paste a valid URL.'; }
+                Utils.id('imgUrlInput').value = ''; updateRteStats(); Utils.id('annDateTime').value = '';
+            }
+            function backupData() {
+                const data = Storage.getAll(); const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'naees_backup_' + Utils.dateStr(new Date()) + '.json'; a.click(); URL.revokeObjectURL(url); Toast.success('Backup downloaded!');
+            }
+            function restoreData() {
+                const input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0]; if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => { try { const data = JSON.parse(ev.target.result); for (const key of Object.keys(data)) { localStorage.setItem(key, JSON.stringify(data[key])); } Toast.success('Data restored! Reloading...'); setTimeout(() => location.reload(), 1000); } catch { Toast.error('Invalid backup file.'); } };
+                    reader.readAsText(file);
+                };
+                input.click();
+            }
+            function clearAllData() { if (confirm('This will permanently delete ALL data. Are you sure?')) { if (confirm('Really? All releases, comments, settings will be lost.')) { Storage.clear(); Toast.success('Data cleared. Reloading...'); setTimeout(() => location.reload(), 1000); } } }
+
+            document.addEventListener('DOMContentLoaded', init);
+
+        })();
+    </script>
+
+</body>
+</html>
